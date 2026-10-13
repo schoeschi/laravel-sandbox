@@ -40,3 +40,19 @@ Route::prefix('responder')->group(function () {
         return $number1 * $number2;
     })->whereNumber("number1")->whereNumber("number2");
 });
+Route::prefix('hallo-velo')->group(function () {
+    Route::get('/bikes', function () {
+        $pdo = new PDO('sqlite:' . database_path('database.sqlite'));
+        $query = $pdo->prepare('SELECT * FROM bikes');
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    });
+
+    Route::get('/bikes/{id}', function (int $id) {
+        $pdo = new PDO('sqlite:' . database_path('database.sqlite'));
+        $query = $pdo->prepare('SELECT * FROM bikes WHERE id = :id');
+        $query->bindParam('id', $id);
+        $query->execute();
+        return $query->fetch(PDO::FETCH_ASSOC);
+    });
+});
