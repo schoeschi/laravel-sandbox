@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('responder')->group(function () {
@@ -21,7 +20,7 @@ Route::prefix('responder')->group(function () {
     });
 
     Route::get('/hi/{name}', function (string $name) {
-        return "Hallo ".$name;
+        return "Hallo " . $name;
     });
 
     Route::get('/weather', function () {
@@ -33,11 +32,11 @@ Route::prefix('responder')->group(function () {
         ];
     });
 
-    Route::get('/error', function() {
+    Route::get('/error', function () {
         return response()->json(['error' => 'Nicht autorisiert!'], 401);
     });
 
-    Route::get('/multiply/{number1}/{number2}', function(int $number1, int $number2) {
+    Route::get('/multiply/{number1}/{number2}', function (int $number1, int $number2) {
         return $number1 * $number2;
-    });
+    })->whereNumber("number1")->whereNumber("number2");
 });
