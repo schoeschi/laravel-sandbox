@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Bike;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('responder')->group(function () {
@@ -56,3 +57,4 @@ Route::prefix('hallo-velo')->group(function () {
         return $query->fetch(PDO::FETCH_ASSOC);
     });
 });
+Route::get('eloquent', fn() => Bike::all());
